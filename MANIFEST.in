@@ -1,0 +1,7 @@
+include dash_avs_ui/dash_avs_ui.min.js
+include dash_avs_ui/dash_avs_ui.min.js.map
+include dash_avs_ui/metadata.json
+include dash_avs_ui/package-info.json
+include README.md
+include LICENSE
+include package.json
