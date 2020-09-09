@@ -22,6 +22,7 @@
 /* eslint-disable no-console, no-unused-vars, no-undef */
 import React, {PureComponent} from 'react';
 import {render} from 'react-dom';
+import PropTypes from 'prop-types';
 
 import {setXVIZConfig, getXVIZConfig} from '@xviz/parser';
 import {
@@ -68,10 +69,12 @@ export default class BasicUI extends PureComponent {
     this.setState({
       settings: {...this.state.settings, ...changedSettings}
     });
+    console.log("Settings changed:", this.state.settings);
   };
 
   render() {
     const {log, settings} = this.state;
+    console.log("New Log:", log);
 
     return (
       <div id="container">
