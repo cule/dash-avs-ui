@@ -3,6 +3,11 @@ const packagejson = require('./package.json');
 
 const dashLibraryName = packagejson.name.replace(/-/g, '_');
 
+const BABEL_CONFIG = {
+    presets: ['@babel/preset-env', '@babel/preset-react'],
+    plugins: ["@babel/proposal-object-rest-spread", '@babel/proposal-class-properties', "styled-jsx/babel"]
+}
+
 module.exports = (env, argv) => {
 
     let mode;
@@ -52,15 +57,11 @@ module.exports = (env, argv) => {
         },
         devtool,
         externals,
+        node: {
+            fs: 'empty'
+        },
         module: {
             rules: [
-                {
-                    test: /\.jsx?$/,
-                    exclude: /node_modules/,
-                    use: {
-                        loader: 'babel-loader',
-                    },
-                },
                 {
                     test: /\.css$/,
                     use: [
@@ -75,6 +76,23 @@ module.exports = (env, argv) => {
                         },
                     ],
                 },
+                {
+                    // Compile ES2015 using bable
+                    test: /\.js$/,
+                    exclude: /node_modules/,
+                    use: [
+                      {
+                        loader: 'babel-loader',
+                        options: BABEL_CONFIG
+                      }
+                    ]
+                  },
+                  {
+                    // Unfortunately, webpack doesn't import library sourcemaps on its own...
+                    test: /\.js$/,
+                    use: ['source-map-loader'],
+                    enforce: 'pre'
+                  }
             ],
         },
     }
