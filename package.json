@@ -24,10 +24,12 @@
   "author": "Xing Han Lu <xinghan@plot.ly>",
   "license": "MIT",
   "dependencies": {
-    "ramda": "^0.26.1"
+    "ramda": "^0.26.1",
+    "streetscape.gl": "^1.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
     "@babel/preset-react": "^7.0.0",
@@ -44,8 +46,9 @@
     "react": "^16.8.6",
     "react-docgen": "^4.1.1",
     "react-dom": "^16.8.6",
-    "styled-jsx": "^3.2.1",
+    "source-map-loader": "^1.1.0",
     "style-loader": "^0.23.1",
+    "styled-jsx": "^3.2.1",
     "webpack": "4.36.1",
     "webpack-cli": "3.3.6",
     "webpack-serve": "3.1.0"

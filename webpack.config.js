@@ -1,5 +1,12 @@
 const path = require('path');
 const packagejson = require('./package.json');
+const webpack = require('webpack');
+
+const BABEL_CONFIG = {
+    presets: ['@babel/preset-env', '@babel/preset-react'],
+    plugins: ['@babel/proposal-class-properties', "@babel/proposal-object-rest-spread", "styled-jsx/babel"]
+  };
+  
 
 const dashLibraryName = packagejson.name.replace(/-/g, '_');
 
@@ -52,14 +59,20 @@ module.exports = (env, argv) => {
         },
         devtool,
         externals,
+        plugins: [
+            new webpack.EnvironmentPlugin(['MapboxAccessToken']),
+            // new webpack.DefinePlugin({__IS_STREAMING__: JSON.stringify(Boolean(env.stream))}),
+            // new webpack.DefinePlugin({__IS_LIVE__: JSON.stringify(Boolean(env.live))})
+        ],
         module: {
+            noParse: /(mapbox-gl)\.js$/,
             rules: [
                 {
-                    test: /\.jsx?$/,
+                    // Compile ES2015 using bable
+                    test: /\.js$/,
                     exclude: /node_modules/,
-                    use: {
-                        loader: 'babel-loader',
-                    },
+                    loader: 'babel-loader',
+                    options: BABEL_CONFIG
                 },
                 {
                     test: /\.css$/,

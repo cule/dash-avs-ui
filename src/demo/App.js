@@ -1,7 +1,7 @@
 /* eslint no-magic-numbers: 0 */
 import React, {Component} from 'react';
 
-import { DashAvsUi } from '../lib';
+import { BasicUI } from '../lib';
 
 class App extends Component {
 
@@ -19,12 +19,7 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-                <DashAvsUi
-                    setProps={this.setProps}
-                    {...this.state}
-                />
-            </div>
+            <BasicUI />
         )
     }
 }

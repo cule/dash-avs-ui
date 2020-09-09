@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-import DashAvsUi from './components/DashAvsUi.react';
+import BasicUI from './components/BasicUI.react';
 
 export {
-    DashAvsUi
+    BasicUI
 };

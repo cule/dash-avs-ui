@@ -1,5 +1,5 @@
-from .DashAvsUi import DashAvsUi
+from .BasicUI import BasicUI
 
 __all__ = [
-    "DashAvsUi"
+    "BasicUI"
 ]
