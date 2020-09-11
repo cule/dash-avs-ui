@@ -19,19 +19,60 @@
     "props": {
       "id": {
         "type": {
-          "name": "custom",
-          "raw": "PropTypes.string"
+          "name": "string"
         },
         "required": false,
         "description": "The ID used to identify this component in Dash callbacks."
       },
       "setProps": {
         "type": {
-          "name": "custom",
-          "raw": "PropTypes.func"
+          "name": "func"
         },
         "required": false,
         "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+      },
+      "log": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "A string representing the logs",
+        "defaultValue": {
+          "value": "{\n  timingsFilePath:\n  'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',\n  getFilePath: \"https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index}-frame.glb\",\n  worker: true,\n  maxConcurrency: 4\n}",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/lib/components/VeryBasicUI.react.js": {
+    "description": "",
+    "displayName": "BasicUI",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+      },
+      "log": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Temp",
+        "defaultValue": {
+          "value": "{\n  timingsFilePath:\n    'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',\n  getFilePath: index =>\n    `https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index +\n      1}-frame.glb`,\n  worker: true,\n  maxConcurrency: 4\n}",
+          "computed": false
+        }
       }
     }
   }

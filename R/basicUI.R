@@ -1,8 +1,8 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-basicUI <- function(id=NULL) {
+basicUI <- function(id=NULL, log=NULL) {
     
-    props <- list(id=id)
+    props <- list(id=id, log=log)
     if (length(props) > 0) {
         props <- props[!vapply(props, is.null, logical(1))]
     }
@@ -10,7 +10,7 @@ basicUI <- function(id=NULL) {
         props = props,
         type = 'BasicUI',
         namespace = 'dash_avs_ui',
-        propNames = c('id'),
+        propNames = c('id', 'log'),
         package = 'dashAvsUi'
         )
 

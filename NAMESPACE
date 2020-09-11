@@ -1,5 +1,7 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 export(BasicUI)
+export(VeryBasicUI)
 export(dashAvsUi)
 export(basicUI)
+export(veryBasicUI)

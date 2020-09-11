@@ -8,16 +8,21 @@ class BasicUI(Component):
 
 
 Keyword arguments:
-- id (optional): The ID used to identify this component in Dash callbacks.
-- setProps (optional): Dash-assigned callback that should be called to report property changes
-to Dash, to make them available for callbacks."""
+- id (string; optional): The ID used to identify this component in Dash callbacks.
+- log (dict; default {
+  timingsFilePath:
+  'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',
+  getFilePath: "https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index}-frame.glb",
+  worker: true,
+  maxConcurrency: 4
+}): A string representing the logs"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'setProps']
+    def __init__(self, id=Component.UNDEFINED, log=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'log']
         self._type = 'BasicUI'
         self._namespace = 'dash_avs_ui'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'setProps']
+        self.available_properties = ['id', 'log']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

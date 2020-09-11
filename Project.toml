@@ -1,12 +1,12 @@
 
 name = "DashAvsUi"
-uuid = "1b08a953-4be3-4667-9a23-5228724ee866"
+uuid = "1b08a953-4be3-4667-9a23-1c939a461ce7"
 authors = ["Xing Han Lu <xinghan@plot.ly>"]
 version = "0.0.1"
 
 [deps]
 Dash = "1b08a953-4be3-4667-9a23-3db579824955"
 
-[compat]
+[compact]
 julia = "1.2"
 Dash = ">=0.1"

@@ -33,7 +33,8 @@ import {
   TrafficLightWidget,
   TurnSignalWidget,
   XVIZPanel,
-  VIEW_MODE
+  VIEW_MODE,
+  XVIZFileLoader
 } from 'streetscape.gl';
 import {Form} from '@streetscape.gl/monochrome';
 
@@ -54,12 +55,24 @@ const exampleLog = require('../basic/log-from-file').default;
 
 export default class BasicUI extends PureComponent {
   state = {
-    log: exampleLog,
     settings: {
       viewMode: 'PERSPECTIVE',
       showTooltip: false
     }
   };
+
+  componentWillMount(){
+    console.log("will mount");
+    const {log} = this.props;
+  
+    if (typeof log.getFilePath === "string"){
+      log.filePathTemplate = log.getFilePath;
+      log.getFilePath = index => log.filePathTemplate.replace("${index}", index + 1);
+    }
+  
+    const loader = new XVIZFileLoader(log);
+    this.setState({log: loader});
+  }
 
   componentDidMount() {
     this.state.log.on('error', console.error).connect();
@@ -76,7 +89,7 @@ export default class BasicUI extends PureComponent {
     const {log, settings} = this.state;
     console.log("New Log:", log);
 
-    return (
+    const out = (
       <div id="container">
         <div id="control-panel">
           <XVIZPanel log={log} name="Metrics" />
@@ -134,10 +147,22 @@ export default class BasicUI extends PureComponent {
         </div>
       </div>
     );
+
+    window.componentOut = out;
+
+    return out;
   }
 }
 
-BasicUI.defaultProps = {};
+BasicUI.defaultProps = {
+  log: {
+    timingsFilePath:
+    'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',
+    getFilePath: "https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index}-frame.glb",
+    worker: true,
+    maxConcurrency: 4
+  }
+};
 
 BasicUI.propTypes = {
     /**
@@ -148,7 +173,12 @@ BasicUI.propTypes = {
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
      */
-    setProps: PropTypes.func
+    setProps: PropTypes.func,
+
+    /**
+     * A string representing the logs
+     */
+    log: PropTypes.object
 };
 
 
