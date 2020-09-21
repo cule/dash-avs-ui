@@ -33,10 +33,13 @@ import {
   TrafficLightWidget,
   TurnSignalWidget,
   XVIZPanel,
-  VIEW_MODE,
-  XVIZFileLoader
+  VIEW_MODE
 } from 'streetscape.gl';
 import {Form} from '@streetscape.gl/monochrome';
+import {XVIZFileLoader} from 'streetscape.gl';
+
+import '../styles/light.css';
+
 
 import {XVIZ_CONFIG, APP_SETTINGS, MAPBOX_TOKEN, MAP_STYLE, XVIZ_STYLE, CAR} from '../basic/constants';
 
@@ -87,22 +90,12 @@ export default class BasicUI extends PureComponent {
 
   render() {
     const {log, settings} = this.state;
+    // const {} = this.props;
     console.log("New Log:", log);
+    window.LogViewer = LogViewer;
 
-    const out = (
+    return (
       <div id="container">
-        <div id="control-panel">
-          <XVIZPanel log={log} name="Metrics" />
-          <hr />
-          <XVIZPanel log={log} name="Camera" />
-          <hr />
-          <Form
-            data={APP_SETTINGS}
-            values={this.state.settings}
-            onChange={this._onSettingsChange}
-          />
-          <StreamSettingsPanel log={log} />
-        </div>
         <div id="log-panel">
           <div id="map-view">
             <LogViewer
@@ -114,28 +107,6 @@ export default class BasicUI extends PureComponent {
               showTooltip={settings.showTooltip}
               viewMode={VIEW_MODE[settings.viewMode]}
             />
-            <div id="hud">
-              <TurnSignalWidget log={log} streamName="/vehicle/turn_signal" />
-              <hr />
-              <TrafficLightWidget log={log} streamName="/vehicle/traffic_light" />
-              <hr />
-              <MeterWidget
-                log={log}
-                streamName="/vehicle/acceleration"
-                label="Acceleration"
-                min={-4}
-                max={4}
-              />
-              <hr />
-              <MeterWidget
-                log={log}
-                streamName="/vehicle/velocity"
-                label="Speed"
-                getWarning={x => (x > 6 ? 'FAST' : '')}
-                min={0}
-                max={20}
-              />
-            </div>
           </div>
           <div id="timeline">
             <PlaybackControl
@@ -147,18 +118,16 @@ export default class BasicUI extends PureComponent {
         </div>
       </div>
     );
-
-    window.componentOut = out;
-
-    return out;
   }
 }
 
 BasicUI.defaultProps = {
   log: {
     timingsFilePath:
-    'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',
-    getFilePath: "https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index}-frame.glb",
+      'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',
+    getFilePath: index =>
+      `https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index +
+        1}-frame.glb`,
     worker: true,
     maxConcurrency: 4
   }
@@ -174,9 +143,9 @@ BasicUI.propTypes = {
      * to Dash, to make them available for callbacks.
      */
     setProps: PropTypes.func,
-
+    
     /**
-     * A string representing the logs
+     * Temp
      */
     log: PropTypes.object
 };

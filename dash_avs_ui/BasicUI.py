@@ -11,11 +11,13 @@ Keyword arguments:
 - id (string; optional): The ID used to identify this component in Dash callbacks.
 - log (dict; default {
   timingsFilePath:
-  'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',
-  getFilePath: "https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index}-frame.glb",
+    'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',
+  getFilePath: index =>
+    `https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index +
+      1}-frame.glb`,
   worker: true,
   maxConcurrency: 4
-}): A string representing the logs"""
+}): Temp"""
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, log=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'log']

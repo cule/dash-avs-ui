@@ -9,7 +9,7 @@ A BasicUI component.
 
 Keyword arguments:
 - `id` (String; optional): The ID used to identify this component in Dash callbacks.
-- `log` (Dict; optional): A string representing the logs
+- `log` (Dict; optional): Temp
 """
 function basicui(; kwargs...)
         available_props = Symbol[:id, :log]

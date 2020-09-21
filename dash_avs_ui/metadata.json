@@ -1,7 +1,7 @@
 {
-  "src/lib/components/BasicUI.react.js": {
+  "src/lib/components/AdvancedUI.react.js": {
     "description": "",
-    "displayName": "BasicUI",
+    "displayName": "AdvancedUI",
     "methods": [
       {
         "name": "_onSettingsChange",
@@ -41,13 +41,33 @@
           "value": "{\n  timingsFilePath:\n  'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',\n  getFilePath: \"https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index}-frame.glb\",\n  worker: true,\n  maxConcurrency: 4\n}",
           "computed": false
         }
+      },
+      "mapboxAccessToken": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Mapbox API token"
       }
     }
   },
-  "src/lib/components/VeryBasicUI.react.js": {
+  "src/lib/components/BasicUI.react.js": {
     "description": "",
     "displayName": "BasicUI",
-    "methods": [],
+    "methods": [
+      {
+        "name": "_onSettingsChange",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "changedSettings",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "id": {
         "type": {
