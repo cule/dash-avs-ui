@@ -3,6 +3,4 @@
 export(AdvancedUI)
 export(BasicUI)
 export(advancedUI)
-export(darkUI)
-export(lightUI)
 export(basicUI)

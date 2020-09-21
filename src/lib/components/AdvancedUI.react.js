@@ -40,22 +40,15 @@ import {Form} from '@streetscape.gl/monochrome';
 
 import {XVIZ_CONFIG, APP_SETTINGS, MAPBOX_TOKEN, MAP_STYLE, XVIZ_STYLE, CAR} from '../basic/constants';
 
-import '../styles/light.css';
-
 
 setXVIZConfig(XVIZ_CONFIG);
 
 const TIMEFORMAT_SCALE = getXVIZConfig().TIMESTAMP_FORMAT === 'seconds' ? 1000 : 1;
 
-// // __IS_STREAMING__ and __IS_LIVE__ are defined in webpack.config.js
-// const exampleLog = require(__IS_STREAMING__
-//   ? './log-from-stream'
-//   : __IS_LIVE__
-//     ? './log-from-live'
-//     : './log-from-file').default;
 
-const exampleLog = require('../basic/log-from-file').default;
-
+/**
+ * More advanced streetscape UI.
+ */
 export default class AdvancedUI extends PureComponent {
   state = {
     settings: {
@@ -90,12 +83,23 @@ export default class AdvancedUI extends PureComponent {
 
   render() {
     const {log, settings} = this.state;
-    const {mapboxAccessToken} = this.props;
+    const {
+      mapboxAccessToken, 
+      mapStyle, 
+      containerStyle, 
+      controlPanelStyle, 
+      logPanelStyle, 
+      mapViewStyle, 
+      hudStyle, 
+      timelineStyle,
+      playbackControlStyle,
+      xvizStyles
+    } = this.props;
     console.log("New Log:", log);
 
-    const out = (
-      <div id="container">
-        <div id="control-panel">
+    return (
+      <div style={containerStyle} id="container">
+        <div style={controlPanelStyle} id="control-panel">
           <XVIZPanel log={log} name="Metrics" />
           <hr />
           <XVIZPanel log={log} name="Camera" />
@@ -107,18 +111,18 @@ export default class AdvancedUI extends PureComponent {
           />
           <StreamSettingsPanel log={log} />
         </div>
-        <div id="log-panel">
-          <div id="map-view">
+        <div style={logPanelStyle} id="log-panel">
+          <div style={mapViewStyle} id="map-view">
             <LogViewer
               log={log}
               mapboxApiAccessToken={mapboxAccessToken}
-              mapStyle={MAP_STYLE}
+              mapStyle={mapStyle}
               car={CAR}
-              xvizStyles={XVIZ_STYLE}
+              xvizStyles={xvizStyles}
               showTooltip={settings.showTooltip}
               viewMode={VIEW_MODE[settings.viewMode]}
             />
-            <div id="hud">
+            <div style={hudStyle} id="hud">
               <TurnSignalWidget log={log} streamName="/vehicle/turn_signal" />
               <hr />
               <TrafficLightWidget log={log} streamName="/vehicle/traffic_light" />
@@ -141,20 +145,17 @@ export default class AdvancedUI extends PureComponent {
               />
             </div>
           </div>
-          <div id="timeline">
+          <div style={timelineStyle} id="timeline">
             <PlaybackControl
               width="100%"
               log={log}
+              style={playbackControlStyle}
               formatTimestamp={x => new Date(x * TIMEFORMAT_SCALE).toUTCString()}
             />
           </div>
         </div>
       </div>
     );
-
-    window.componentOut = out;
-
-    return out;
   }
 }
 
@@ -165,7 +166,12 @@ AdvancedUI.defaultProps = {
     getFilePath: "https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index}-frame.glb",
     worker: true,
     maxConcurrency: 4
-  }
+  },
+  mapStyle: 'mapbox://styles/mapbox/light-v9',
+  xvizStyles: {
+    '/tracklets/objects': [{name: 'selected', style: {fill_color: '#ff8000aa'}}],
+    '/lidar/points': [{style: {point_color_mode: 'ELEVATION'}}]
+  }  
 };
 
 AdvancedUI.propTypes = {
@@ -187,8 +193,53 @@ AdvancedUI.propTypes = {
     /**
      * Mapbox API token
      */
-    mapboxAccessToken: PropTypes.object
-};
+    mapboxAccessToken: PropTypes.string,
+
+    /**
+     * Map style
+     */
+    mapStyle: PropTypes.string,
+
+    /**
+     * xviz styles
+     */
+    xvizStyles: PropTypes.object,
+    
+    /**
+     * Styling
+     */
+    containerStyle: PropTypes.object,
+
+    /**
+     * Styling
+     */
+    controlPanelStyle: PropTypes.object,
+
+    /**
+     * Styling
+     */
+    logPanelStyle: PropTypes.object,
+
+    /**
+     * Styling
+     */
+    mapViewStyle: PropTypes.object,
 
 
-// render(<Example />, document.getElementById('app'));
+    /**
+     * Styling
+     */
+    hudStyle: PropTypes.object,
+
+
+    /**
+     * Styling
+     */
+    timelineStyle: PropTypes.object,
+
+    /**
+     * component style
+     */
+    playbackControlStyle: PropTypes.object
+
+}

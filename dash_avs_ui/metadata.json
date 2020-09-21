@@ -1,6 +1,6 @@
 {
   "src/lib/components/AdvancedUI.react.js": {
-    "description": "",
+    "description": "More advanced streetscape UI.",
     "displayName": "AdvancedUI",
     "methods": [
       {
@@ -44,15 +44,86 @@
       },
       "mapboxAccessToken": {
         "type": {
-          "name": "object"
+          "name": "string"
         },
         "required": false,
         "description": "Mapbox API token"
+      },
+      "mapStyle": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Map style",
+        "defaultValue": {
+          "value": "'mapbox://styles/mapbox/light-v9'",
+          "computed": false
+        }
+      },
+      "xvizStyles": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "xviz styles",
+        "defaultValue": {
+          "value": "{\n  '/tracklets/objects': [{name: 'selected', style: {fill_color: '#ff8000aa'}}],\n  '/lidar/points': [{style: {point_color_mode: 'ELEVATION'}}]\n}",
+          "computed": false
+        }
+      },
+      "containerStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "controlPanelStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "logPanelStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "mapViewStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "hudStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "timelineStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "playbackControlStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "component style"
       }
     }
   },
   "src/lib/components/BasicUI.react.js": {
-    "description": "",
+    "description": "Simple streetscape UI.",
     "displayName": "BasicUI",
     "methods": [
       {
@@ -93,6 +164,48 @@
           "value": "{\n  timingsFilePath:\n    'https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/0-frame.json',\n  getFilePath: index =>\n    `https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index +\n      1}-frame.glb`,\n  worker: true,\n  maxConcurrency: 4\n}",
           "computed": false
         }
+      },
+      "mapboxAccessToken": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Mapbox API token"
+      },
+      "mapStyle": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Map style"
+      },
+      "containerStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "logPanelStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "mapViewStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
+      },
+      "timelineStyle": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Styling"
       }
     }
   }

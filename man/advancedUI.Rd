@@ -6,11 +6,15 @@
 \title{AdvancedUI component}
 
 \description{
-
+More advanced streetscape UI.
 }
 
 \usage{
-advancedUI(id=NULL, log=NULL, mapboxAccessToken=NULL)
+advancedUI(id=NULL, log=NULL, mapboxAccessToken=NULL, mapStyle=NULL,
+xvizStyles=NULL, containerStyle=NULL,
+controlPanelStyle=NULL, logPanelStyle=NULL,
+mapViewStyle=NULL, hudStyle=NULL, timelineStyle=NULL,
+playbackControlStyle=NULL)
 }
 
 \arguments{
@@ -18,7 +22,25 @@ advancedUI(id=NULL, log=NULL, mapboxAccessToken=NULL)
 
 \item{log}{Named list. A string representing the logs}
 
-\item{mapboxAccessToken}{Named list. Mapbox API token}
+\item{mapboxAccessToken}{Character. Mapbox API token}
+
+\item{mapStyle}{Character. Map style}
+
+\item{xvizStyles}{Named list. xviz styles}
+
+\item{containerStyle}{Named list. Styling}
+
+\item{controlPanelStyle}{Named list. Styling}
+
+\item{logPanelStyle}{Named list. Styling}
+
+\item{mapViewStyle}{Named list. Styling}
+
+\item{hudStyle}{Named list. Styling}
+
+\item{timelineStyle}{Named list. Styling}
+
+\item{playbackControlStyle}{Named list. component style}
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}

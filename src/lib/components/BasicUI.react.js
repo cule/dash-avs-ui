@@ -38,8 +38,6 @@ import {
 import {Form} from '@streetscape.gl/monochrome';
 import {XVIZFileLoader} from 'streetscape.gl';
 
-import '../styles/light.css';
-
 
 import {XVIZ_CONFIG, APP_SETTINGS, MAPBOX_TOKEN, MAP_STYLE, XVIZ_STYLE, CAR} from '../basic/constants';
 
@@ -56,6 +54,9 @@ const TIMEFORMAT_SCALE = getXVIZConfig().TIMESTAMP_FORMAT === 'seconds' ? 1000 :
 
 const exampleLog = require('../basic/log-from-file').default;
 
+/**
+ * Simple streetscape UI.
+ */
 export default class BasicUI extends PureComponent {
   state = {
     settings: {
@@ -90,25 +91,31 @@ export default class BasicUI extends PureComponent {
 
   render() {
     const {log, settings} = this.state;
-    // const {} = this.props;
+    const {
+      mapboxAccessToken, 
+      mapStyle, 
+      containerStyle, 
+      logPanelStyle, 
+      mapViewStyle,
+      timelineStyle
+    } = this.props;
     console.log("New Log:", log);
-    window.LogViewer = LogViewer;
 
     return (
-      <div id="container">
-        <div id="log-panel">
-          <div id="map-view">
+      <div id="container" style={containerStyle}>
+        <div id="log-panel" style={logPanelStyle}>
+          <div id="map-view" style={mapViewStyle}>
             <LogViewer
               log={log}
-              mapboxApiAccessToken={MAPBOX_TOKEN}
-              mapStyle={MAP_STYLE}
+              mapboxApiAccessToken={mapboxAccessToken}
+              mapStyle={mapStyle}
               car={CAR}
               xvizStyles={XVIZ_STYLE}
               showTooltip={settings.showTooltip}
               viewMode={VIEW_MODE[settings.viewMode]}
             />
           </div>
-          <div id="timeline">
+          <div id="timeline" style={timelineStyle}>
             <PlaybackControl
               width="100%"
               log={log}
@@ -147,8 +154,35 @@ BasicUI.propTypes = {
     /**
      * Temp
      */
-    log: PropTypes.object
-};
+    log: PropTypes.object,
 
+    /**
+     * Mapbox API token
+     */
+    mapboxAccessToken: PropTypes.string,
 
-// render(<Example />, document.getElementById('app'));
+    /**
+     * Map style
+     */
+    mapStyle: PropTypes.string,
+    
+    /**
+     * Styling
+     */
+    containerStyle: PropTypes.object,
+
+    /**
+     * Styling
+     */
+    logPanelStyle: PropTypes.object,
+
+    /**
+     * Styling
+     */
+    mapViewStyle: PropTypes.object,
+
+    /**
+     * Styling
+     */
+    timelineStyle: PropTypes.object,
+}

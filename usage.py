@@ -13,9 +13,10 @@ app.layout = html.Div(
             'getFilePath': "https://raw.githubusercontent.com/uber/xviz-data/master/kitti/2011_09_26_drive_0005_sync/${index}-frame.glb",
             'worker': True,
             'maxConcurrency': 4
-        }
+        },
+        containerStyle={'width': '50%', 'height': '75vh'}
     ),
-    style={'width': '50%', 'height': '75vh'}
+    className='light',
 )
 
 if __name__ == '__main__':
