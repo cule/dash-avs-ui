@@ -49,7 +49,7 @@ const TIMEFORMAT_SCALE = getXVIZConfig().TIMESTAMP_FORMAT === 'seconds' ? 1000 :
 /**
  * More advanced streetscape UI.
  */
-export default class AdvancedUI extends PureComponent {
+export default class AdvancedUI extends React.Component {
   state = {
     settings: {
       viewMode: 'PERSPECTIVE',
