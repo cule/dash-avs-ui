@@ -12,6 +12,7 @@ BG_COLOR = "black"
 mapbox_token = os.getenv("MAPBOX_ACCESS_TOKEN")
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 STYLES = [
     'light',
@@ -89,7 +90,12 @@ def update_log(trip, style, mode):
         UI = dash_avs_ui.BasicUI
 
 
-    return UI(id={'name': 'avs-ui'}, log=log, mapStyle=map_style, containerStyle={'height': 'calc(100vh - 100px)', 'width': '73%'})
+    return UI(
+        id={'name': 'avs-ui'}, 
+        log=log, 
+        mapStyle=map_style, 
+        containerStyle={'height': 'calc(100vh - 100px)', 'width': '73%'}
+    )
 
 
 if __name__ == '__main__':
