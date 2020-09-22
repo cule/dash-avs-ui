@@ -6,6 +6,17 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 
+def Header(name, app):
+    title = html.H1(name, style={"margin-top": 5})
+    logo = html.Img(
+        src=app.get_asset_url('dash-logo.png'),
+        style={'float': 'right', 'height': 60}
+    )
+    link = html.A(logo, href="https://plotly.com/dash/")
+    
+    return dbc.Row([dbc.Col(title, md=8), dbc.Col(link, md=4)])
+
+
 TEXT_COLOR = "white"
 BG_COLOR = "black"
 
@@ -61,7 +72,7 @@ controls = [
 ]
 
 app.layout = dbc.Container([
-    html.H1("Custom Map"),
+    Header("Dash Autonomous Driving Demo", app),
     html.Hr(),
     dbc.Row([
         dbc.Col(dbc.Card(controls, body=True), md=3),
