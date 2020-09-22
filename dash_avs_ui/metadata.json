@@ -71,6 +71,13 @@
           "computed": false
         }
       },
+      "selectedInfo": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Read only prop"
+      },
       "containerStyle": {
         "type": {
           "name": "object"

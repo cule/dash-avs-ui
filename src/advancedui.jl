@@ -13,6 +13,7 @@ Keyword arguments:
 - `mapboxAccessToken` (String; optional): Mapbox API token
 - `mapStyle` (String; optional): Map style
 - `xvizStyles` (Dict; optional): xviz styles
+- `selectedInfo` (Dict; optional): Read only prop
 - `containerStyle` (Dict; optional): Styling
 - `controlPanelStyle` (Dict; optional): Styling
 - `logPanelStyle` (Dict; optional): Styling
@@ -22,7 +23,7 @@ Keyword arguments:
 - `playbackControlStyle` (Dict; optional): component style
 """
 function advancedui(; kwargs...)
-        available_props = Symbol[:id, :log, :mapboxAccessToken, :mapStyle, :xvizStyles, :containerStyle, :controlPanelStyle, :logPanelStyle, :mapViewStyle, :hudStyle, :timelineStyle, :playbackControlStyle]
+        available_props = Symbol[:id, :log, :mapboxAccessToken, :mapStyle, :xvizStyles, :selectedInfo, :containerStyle, :controlPanelStyle, :logPanelStyle, :mapViewStyle, :hudStyle, :timelineStyle, :playbackControlStyle]
         wild_props = Symbol[]
         return Component("advancedui", "AdvancedUI", "dash_avs_ui", available_props, wild_props; kwargs...)
 end

@@ -39,7 +39,7 @@ import {Form} from '@streetscape.gl/monochrome';
 import {XVIZFileLoader} from 'streetscape.gl';
 
 
-import {XVIZ_CONFIG, APP_SETTINGS, MAPBOX_TOKEN, MAP_STYLE, XVIZ_STYLE, CAR} from '../basic/constants';
+import {XVIZ_CONFIG, APP_SETTINGS, MAPBOX_TOKEN, MAP_STYLE, XVIZ_STYLE, CAR} from '../advanced/constants';
 
 setXVIZConfig(XVIZ_CONFIG);
 
@@ -52,7 +52,7 @@ const TIMEFORMAT_SCALE = getXVIZConfig().TIMESTAMP_FORMAT === 'seconds' ? 1000 :
 //     ? './log-from-live'
 //     : './log-from-file').default;
 
-const exampleLog = require('../basic/log-from-file').default;
+const exampleLog = require('../advanced/log-from-file').default;
 
 /**
  * Simple streetscape UI.
@@ -65,22 +65,22 @@ export default class BasicUI extends PureComponent {
     }
   };
 
-  componentWillMount(){
-    console.log("will mount");
-    const {log} = this.props;
+  // componentWillMount(){
+  //   console.log("will mount");
+  //   const {log} = this.props;
   
-    if (typeof log.getFilePath === "string"){
-      log.filePathTemplate = log.getFilePath;
-      log.getFilePath = index => log.filePathTemplate.replace("${index}", index + 1);
-    }
+  //   if (typeof log.getFilePath === "string"){
+  //     log.filePathTemplate = log.getFilePath;
+  //     log.getFilePath = index => log.filePathTemplate.replace("${index}", index + 1);
+  //   }
   
-    const loader = new XVIZFileLoader(log);
-    this.setState({log: loader});
-  }
+  //   const loader = new XVIZFileLoader(log);
+  //   this.setState({log: loader});
+  // }
 
-  componentDidMount() {
-    this.state.log.on('error', console.error).connect();
-  }
+  // componentDidMount() {
+  //   this.state.log.on('error', console.error).connect();
+  // }
 
   _onSettingsChange = changedSettings => {
     this.setState({
@@ -90,23 +90,28 @@ export default class BasicUI extends PureComponent {
   };
 
   render() {
-    const {log, settings} = this.state;
+    const {settings} = this.state;
     const {
       mapboxAccessToken, 
       mapStyle, 
       containerStyle, 
       logPanelStyle, 
       mapViewStyle,
-      timelineStyle
+      timelineStyle,
+      log
     } = this.props;
-    console.log("New Log:", log);
+
+    log.filePathTemplate = log.getFilePath;
+    log.getFilePath = index => log.filePathTemplate.replace("${index}", index + 1);
+    const loader = new XVIZFileLoader(log);
+    loader.on('error', console.error).connect();
 
     return (
       <div id="container" style={containerStyle}>
         <div id="log-panel" style={logPanelStyle}>
           <div id="map-view" style={mapViewStyle}>
             <LogViewer
-              log={log}
+              log={loader}
               mapboxApiAccessToken={mapboxAccessToken}
               mapStyle={mapStyle}
               car={CAR}
@@ -118,7 +123,7 @@ export default class BasicUI extends PureComponent {
           <div id="timeline" style={timelineStyle}>
             <PlaybackControl
               width="100%"
-              log={log}
+              log={loader}
               formatTimestamp={x => new Date(x * TIMEFORMAT_SCALE).toUTCString()}
             />
           </div>

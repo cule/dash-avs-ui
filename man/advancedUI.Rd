@@ -11,7 +11,7 @@ More advanced streetscape UI.
 
 \usage{
 advancedUI(id=NULL, log=NULL, mapboxAccessToken=NULL, mapStyle=NULL,
-xvizStyles=NULL, containerStyle=NULL,
+xvizStyles=NULL, selectedInfo=NULL, containerStyle=NULL,
 controlPanelStyle=NULL, logPanelStyle=NULL,
 mapViewStyle=NULL, hudStyle=NULL, timelineStyle=NULL,
 playbackControlStyle=NULL)
@@ -27,6 +27,8 @@ playbackControlStyle=NULL)
 \item{mapStyle}{Character. Map style}
 
 \item{xvizStyles}{Named list. xviz styles}
+
+\item{selectedInfo}{Named list. Read only prop}
 
 \item{containerStyle}{Named list. Styling}
 

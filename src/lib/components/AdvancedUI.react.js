@@ -37,8 +37,9 @@ import {
   XVIZFileLoader
 } from 'streetscape.gl';
 import {Form} from '@streetscape.gl/monochrome';
+import sanitizeEvents from '../sanitizeEvents';
 
-import {XVIZ_CONFIG, APP_SETTINGS, MAPBOX_TOKEN, MAP_STYLE, XVIZ_STYLE, CAR} from '../basic/constants';
+import {XVIZ_CONFIG, APP_SETTINGS, MAPBOX_TOKEN, MAP_STYLE, XVIZ_STYLE, CAR} from '../advanced/constants';
 
 
 setXVIZConfig(XVIZ_CONFIG);
@@ -57,22 +58,22 @@ export default class AdvancedUI extends React.Component {
     }
   };
 
-  componentWillMount(){
-    console.log("will mount");
-    const {log} = this.props;
+  // componentWillMount(){
+  //   console.log("will mount");
+  //   const {log} = this.props;
   
-    if (typeof log.getFilePath === "string"){
-      log.filePathTemplate = log.getFilePath;
-      log.getFilePath = index => log.filePathTemplate.replace("${index}", index + 1);
-    }
+  //   if (typeof log.getFilePath === "string"){
+  //     log.filePathTemplate = log.getFilePath;
+  //     log.getFilePath = index => log.filePathTemplate.replace("${index}", index + 1);
+  //   }
   
-    const loader = new XVIZFileLoader(log);
-    this.setState({log: loader});
-  }
+  //   const loader = new XVIZFileLoader(log);
+  //   this.setState({log: loader});
+  // }
 
-  componentDidMount() {
-    this.state.log.on('error', console.error).connect();
-  }
+  // componentDidMount() {
+  //   this.state.log.on('error', console.error).connect();
+  // }
 
   _onSettingsChange = changedSettings => {
     this.setState({
@@ -82,7 +83,7 @@ export default class AdvancedUI extends React.Component {
   };
 
   render() {
-    const {log, settings} = this.state;
+    const {settings} = this.state;
     const {
       mapboxAccessToken, 
       mapStyle, 
@@ -93,42 +94,49 @@ export default class AdvancedUI extends React.Component {
       hudStyle, 
       timelineStyle,
       playbackControlStyle,
-      xvizStyles
+      xvizStyles,
+      log
     } = this.props;
-    console.log("New Log:", log);
+  
+    log.filePathTemplate = log.getFilePath;
+    log.getFilePath = index => log.filePathTemplate.replace("${index}", index + 1);
+    const loader = new XVIZFileLoader(log);
+    loader.on('error', console.error).connect();
+
 
     return (
       <div style={containerStyle} id="container">
         <div style={controlPanelStyle} id="control-panel">
-          <XVIZPanel log={log} name="Metrics" />
+          <XVIZPanel log={loader} name="Metrics" />
           <hr />
-          <XVIZPanel log={log} name="Camera" />
+          <XVIZPanel log={loader} name="Camera" />
           <hr />
           <Form
             data={APP_SETTINGS}
             values={this.state.settings}
             onChange={this._onSettingsChange}
           />
-          <StreamSettingsPanel log={log} />
+          <StreamSettingsPanel log={loader} />
         </div>
         <div style={logPanelStyle} id="log-panel">
           <div style={mapViewStyle} id="map-view">
             <LogViewer
-              log={log}
+              log={loader}
               mapboxApiAccessToken={mapboxAccessToken}
               mapStyle={mapStyle}
               car={CAR}
               xvizStyles={xvizStyles}
               showTooltip={settings.showTooltip}
               viewMode={VIEW_MODE[settings.viewMode]}
+              // onSelectObject={(info, event) => this.props.setProps(sanitizeEvents({selectedInfo: info}))}
             />
             <div style={hudStyle} id="hud">
-              <TurnSignalWidget log={log} streamName="/vehicle/turn_signal" />
+              <TurnSignalWidget log={loader} streamName="/vehicle/turn_signal" />
               <hr />
-              <TrafficLightWidget log={log} streamName="/vehicle/traffic_light" />
+              <TrafficLightWidget log={loader} streamName="/vehicle/traffic_light" />
               <hr />
               <MeterWidget
-                log={log}
+                log={loader}
                 streamName="/vehicle/acceleration"
                 label="Acceleration"
                 min={-4}
@@ -136,7 +144,7 @@ export default class AdvancedUI extends React.Component {
               />
               <hr />
               <MeterWidget
-                log={log}
+                log={loader}
                 streamName="/vehicle/velocity"
                 label="Speed"
                 getWarning={x => (x > 6 ? 'FAST' : '')}
@@ -148,7 +156,7 @@ export default class AdvancedUI extends React.Component {
           <div style={timelineStyle} id="timeline">
             <PlaybackControl
               width="100%"
-              log={log}
+              log={loader}
               style={playbackControlStyle}
               formatTimestamp={x => new Date(x * TIMEFORMAT_SCALE).toUTCString()}
             />
@@ -204,6 +212,11 @@ AdvancedUI.propTypes = {
      * xviz styles
      */
     xvizStyles: PropTypes.object,
+
+    // /**
+    //  * Read only prop
+    //  */
+    // selectedInfo: PropTypes.object,
     
     /**
      * Styling

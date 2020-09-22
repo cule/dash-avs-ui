@@ -22,6 +22,7 @@ Keyword arguments:
   '/tracklets/objects': [{name: 'selected', style: {fill_color: '#ff8000aa'}}],
   '/lidar/points': [{style: {point_color_mode: 'ELEVATION'}}]
 }): xviz styles
+- selectedInfo (dict; optional): Read only prop
 - containerStyle (dict; optional): Styling
 - controlPanelStyle (dict; optional): Styling
 - logPanelStyle (dict; optional): Styling
@@ -30,12 +31,12 @@ Keyword arguments:
 - timelineStyle (dict; optional): Styling
 - playbackControlStyle (dict; optional): component style"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, log=Component.UNDEFINED, mapboxAccessToken=Component.UNDEFINED, mapStyle=Component.UNDEFINED, xvizStyles=Component.UNDEFINED, containerStyle=Component.UNDEFINED, controlPanelStyle=Component.UNDEFINED, logPanelStyle=Component.UNDEFINED, mapViewStyle=Component.UNDEFINED, hudStyle=Component.UNDEFINED, timelineStyle=Component.UNDEFINED, playbackControlStyle=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'log', 'mapboxAccessToken', 'mapStyle', 'xvizStyles', 'containerStyle', 'controlPanelStyle', 'logPanelStyle', 'mapViewStyle', 'hudStyle', 'timelineStyle', 'playbackControlStyle']
+    def __init__(self, id=Component.UNDEFINED, log=Component.UNDEFINED, mapboxAccessToken=Component.UNDEFINED, mapStyle=Component.UNDEFINED, xvizStyles=Component.UNDEFINED, selectedInfo=Component.UNDEFINED, containerStyle=Component.UNDEFINED, controlPanelStyle=Component.UNDEFINED, logPanelStyle=Component.UNDEFINED, mapViewStyle=Component.UNDEFINED, hudStyle=Component.UNDEFINED, timelineStyle=Component.UNDEFINED, playbackControlStyle=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'log', 'mapboxAccessToken', 'mapStyle', 'xvizStyles', 'selectedInfo', 'containerStyle', 'controlPanelStyle', 'logPanelStyle', 'mapViewStyle', 'hudStyle', 'timelineStyle', 'playbackControlStyle']
         self._type = 'AdvancedUI'
         self._namespace = 'dash_avs_ui'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'log', 'mapboxAccessToken', 'mapStyle', 'xvizStyles', 'containerStyle', 'controlPanelStyle', 'logPanelStyle', 'mapViewStyle', 'hudStyle', 'timelineStyle', 'playbackControlStyle']
+        self.available_properties = ['id', 'log', 'mapboxAccessToken', 'mapStyle', 'xvizStyles', 'selectedInfo', 'containerStyle', 'controlPanelStyle', 'logPanelStyle', 'mapViewStyle', 'hudStyle', 'timelineStyle', 'playbackControlStyle']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')
